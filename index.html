@@ -805,7 +805,7 @@
         <div class="announcement-content">
             <span class="announcement-icon"><i class="fas fa-bullhorn"></i></span>
             <span class="announcement-text">မနက် 9 နာရီမှ ည 12နာရီအထိဝယ်ယူနိုင်ပါသည် 
-                <a href="https://t.me/ktkgamingstore" target="_blank" class="announcement-link"></a>
+                <a href="https://t.me/KuuDiamond_Bot" target="_blank" class="announcement-link"></a>
             </span>
             <span class="announcement-close" onclick="closeAnnouncement()"><i class="fas fa-times"></i></span>
         </div>
@@ -1003,9 +1003,9 @@
             <span>ID မှားချင်းဖြေရှင်းချက်</span>
             <i class="fas fa-chevron-right"></i>
         </div>
-        <div class="help-item" onclick="window.open('https://t.me/ktkgamingstore', '_blank')">
+        <div class="help-item" onclick="window.open('https://t.me/KuuDiamond_Bot', '_blank')">
             <i class="fas fa-paper-plane"></i>
-            <span>Official Channel</span>
+            <span>Official Bot</span>
             <i class="fas fa-chevron-right"></i>
         </div>
         <div class="help-item" onclick="showDiamondNotReceivedInfo()">
@@ -1064,7 +1064,7 @@
                     10 မိနစ်စောင့်ပေးပါ<br>
                     မရောက်ရှိသေးရင်<br>
                     အကြောင်းကြားပေးပါ
-                    Telegram @Maxx2104
+                    Telegram @KuuDiamond_Bot
                 </p>
             </div>
             <button class="submit-btn" onclick="closeDiamondNotReceivedModal()" style="margin-top: 20px;">
@@ -1083,6 +1083,11 @@
         </div>
     </div>
 
+    <!-- Floating Ball for Telegram Bot -->
+    <div class="floating-ball" onclick="window.open('https://t.me/KuuDiamond_Bot', '_blank')">
+        <i class="fas fa-paper-plane"></i>
+    </div>
+
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
     <script>
@@ -1098,7 +1103,7 @@
         };
 
         const TELEGRAM_BOT_TOKEN = '8402294532:AAG3zY4ytNeluo7nk19su8YeH33jenpewqY';
-        const TELEGRAM_GROUP_ID = '@KuuDiamond_Bot';
+        const TELEGRAM_CHAT_ID = '@KuuDiamond_Bot'; // Changed to bot's chat ID
         let currentGame = 'mlbb';
 
         // Open purchase modal
@@ -1126,10 +1131,10 @@
             document.body.style.overflow = 'auto';
         }
 
-        // Send to Telegram
+        // Send to Telegram Bot
         async function sendTelegramPhotoWithCaption(file, caption) {
             const formData = new FormData();
-            formData.append('chat_id', TELEGRAM_GROUP_ID);
+            formData.append('chat_id', TELEGRAM_CHAT_ID);
             formData.append('photo', file);
             formData.append('caption', caption);
             formData.append('parse_mode', 'HTML');
@@ -1140,6 +1145,9 @@
                     body: formData
                 });
                 const data = await response.json();
+                if (!data.ok) {
+                    throw new Error(data.description || 'Failed to send message to Telegram');
+                }
                 return data;
             } catch (error) {
                 console.error('Error sending to Telegram:', error);
